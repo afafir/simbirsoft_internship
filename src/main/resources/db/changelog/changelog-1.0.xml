@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet  author="Bulat"  id="changelog-1.0">
+        <createTable  tableName="db_user">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="email"  type="varchar(50)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column  name="username"  type="varchar(50)">
+                <constraints  nullable="false" unique="true"/>
+            </column>
+            <column  name="password"  type="varchar(100)"/>
+            <column name="role" type="role"/>
+        </createTable>
+        <createTable tableName="category">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="description" type="varchar(250)"/>
+        </createTable>
+        <createTable tableName="item">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="item_code" type="varchar(30)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="real">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dimension" type="dimension">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="warehouse">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="address" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="supplier">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="stock">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_id" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="fk_item_stock"
+                             references="item(id)"/>
+            </column>
+            <column name="warehouse_id" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="fk_warehouse_stock"
+                             references="warehouse(id)"/>
+            </column>
+
+
+        </createTable>
+        <createTable tableName="shop">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="warehouse_id" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="fk_shop_warehouse"
+                             references="warehouse(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="db_order">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="is_confirmed" defaultValue="false" type="boolean"/>
+            <column name="ordered_at" type="timestamp"/>
+            <column name="customer_id" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="fk_order_customer"
+                             references="db_user(id)"/>
+            </column>
+            <column name="shop_id" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="fk_order_shop"
+                             references="shop(id)"/>
+            </column>
+
+        </createTable>
+        <createTable tableName="invoice">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="arrived_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="warehouse_id" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="fk_invoice_warehouse"
+                             references="warehouse(id)"/>
+            </column>
+            <column name="supplier_id" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="fk_invoice_supplier"
+                             references="supplier(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="item_order">
+            <column name="item_id" type="bigint">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             foreignKeyName="fk_item_order"
+                             references="item(id)"/>
+            </column>
+            <column name="order_id" type="bigint">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             foreignKeyName="fk_order_item"
+                             references="db_order(id)"/>
+            </column>
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="item_category">
+            <column name="item_id" type="bigint">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             foreignKeyName="fk_item_category"
+                             references="item(id)"/>
+            </column>
+            <column name="category_id" type="bigint">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             foreignKeyName="fk_category_item"
+                             references="category(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="item_invoice">
+            <column name="item_id" type="bigint">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             foreignKeyName="fk_item_invoice"
+                             references="item(id)"/>
+            </column>
+            <column name="invoice_id" type="bigint">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             foreignKeyName="fk_invoice_item"
+                             references="invoice(id)"/>
+            </column>
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+
+    </changeSet>
+</databaseChangeLog>
