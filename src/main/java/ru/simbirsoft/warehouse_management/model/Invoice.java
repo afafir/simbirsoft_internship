@@ -18,7 +18,7 @@ import java.util.List;
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     private Supplier supplier;
@@ -30,8 +30,11 @@ public class Invoice {
     )
     private List<ItemInvoice> items;
 
-    @Column(name = "arrivedAt")
+    @Column(name = "arrived_at")
     private LocalDateTime arrivedAt;
+
+    @ManyToOne
+    private Warehouse warehouse;
 
 
 }

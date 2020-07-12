@@ -19,16 +19,12 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "itemCode")
+    @Column(name = "item_code")
     private String code;
     @ManyToMany
-    private List<Category> categories;
-
-    @Column(name = "quantity")
-    private int quantity;
-
+    private List<Category> category;
     @Column(name = "price")
-    private double price;
+    private float price;
 
     @Column(name = "description")
     private String description;

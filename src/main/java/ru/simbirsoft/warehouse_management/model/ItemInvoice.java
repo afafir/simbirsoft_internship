@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.simbirsoft.warehouse_management.model.pk.ItemInvoicePk;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -13,18 +15,17 @@ import java.util.Objects;
 @NoArgsConstructor
 @Data
 @Builder
-@Table(name = "itemInvoice")
-public class ItemInvoice {
+public class ItemInvoice implements Serializable {
 
     @EmbeddedId
     private ItemInvoicePk id;
 
     @ManyToOne
-    @MapsId("itemId")
+    @MapsId("item_id")
     private Item item;
 
     @ManyToOne
-    @MapsId("invoiceId")
+    @MapsId("invoice_id")
     private Invoice invoice;
 
     @Column (name = "quantity")

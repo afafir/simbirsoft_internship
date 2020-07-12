@@ -1,4 +1,4 @@
-package ru.simbirsoft.warehouse_management.model;
+package ru.simbirsoft.warehouse_management.model.pk;
 
 import lombok.AllArgsConstructor;
 
@@ -11,10 +11,10 @@ import java.util.Objects;
 
 public class OrderItemPk implements Serializable {
 
-    @Column(name = "itemId")
+    @Column(name = "item_id")
     private Long itemId;
 
-    @Column (name = "orderId")
+    @Column (name = "order_id")
     private Long orderId;
 
 

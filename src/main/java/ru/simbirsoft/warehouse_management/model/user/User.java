@@ -1,4 +1,4 @@
-package ru.simbirsoft.warehouse_management.model;
+package ru.simbirsoft.warehouse_management.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,4 +24,6 @@ public class User {
     private String password;
     @Column(name = "email")
     private String email;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

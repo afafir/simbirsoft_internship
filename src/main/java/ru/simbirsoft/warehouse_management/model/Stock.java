@@ -22,7 +22,7 @@ public class Stock {
     @ManyToOne
     private Item item;
 
-    @Column(name = "quantity")
+    @Column(name = "quantity",nullable = false)
     private int quantity;
 
     @ManyToOne

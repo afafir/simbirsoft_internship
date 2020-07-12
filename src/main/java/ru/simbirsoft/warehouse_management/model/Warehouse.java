@@ -17,7 +17,7 @@ public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "address")
+    @Column(name = "address",nullable = false)
     private String address;
 
 }

@@ -4,11 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.simbirsoft.warehouse_management.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 @Entity
-@Table(name = "order")
+@Table(name = "db_order")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,5 +29,7 @@ public class Order {
 
     @Column(name = "orderedAt")
     private LocalDateTime orderedAt;
+    @ManyToOne
+    private Shop shop;
 
 }
