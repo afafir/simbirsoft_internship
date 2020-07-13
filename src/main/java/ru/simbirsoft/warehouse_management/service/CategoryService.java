@@ -38,7 +38,7 @@ public interface CategoryService {
     /**
      * Update entity from db by id from categoryDto. This dto also contains all fields of the Category.
      * These fields will replace the fields of an entity
-     * @param categoryDto - dto DTO which contains all changes of the entity
+     * @param categoryDto -  DTO which contains all changes of the entity
      * @return updated category entity
      */
     Category updateCategory(CategoryDto categoryDto);
