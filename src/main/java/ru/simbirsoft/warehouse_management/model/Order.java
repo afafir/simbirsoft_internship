@@ -8,6 +8,8 @@ import ru.simbirsoft.warehouse_management.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 @Table(name = "db_order")
 @Data
@@ -26,6 +28,13 @@ public class Order {
 
     @Column(name = "isConfirmed")
     private Boolean isConfirmed;
+
+    @OneToMany(
+            mappedBy = "item",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<OrderItem> items;
 
     @Column(name = "orderedAt")
     private LocalDateTime orderedAt;
