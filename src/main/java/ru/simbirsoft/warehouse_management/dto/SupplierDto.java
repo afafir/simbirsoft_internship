@@ -15,10 +15,12 @@ import java.util.stream.Collectors;
 @Builder
 public class SupplierDto {
 
+    private Long id;
     private String supplier;
 
     public static SupplierDto from (Supplier supplier){
         return SupplierDto.builder()
+                .id(supplier.getId())
                 .supplier(supplier.getName())
                 .build();
     }

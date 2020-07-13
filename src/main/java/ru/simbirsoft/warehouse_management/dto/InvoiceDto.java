@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Data
 @Builder
 public class InvoiceDto {
+    private Long id;
     private SupplierDto supplierDto;
     private List<ItemInvoiceDto> itemsDto;
     private LocalDateTime arrivedAt;
@@ -23,6 +24,7 @@ public class InvoiceDto {
 
     public static InvoiceDto from (Invoice invoice){
        return InvoiceDto.builder()
+                .id(invoice.getId())
                 .arrivedAt(invoice.getArrivedAt())
                 .itemsDto(ItemInvoiceDto.from(invoice.getItems()))
                 .warehouseDto(WarehouseDto.from(invoice.getWarehouse()))

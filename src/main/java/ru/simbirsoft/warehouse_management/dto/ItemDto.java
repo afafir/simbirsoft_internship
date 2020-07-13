@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 public class ItemDto {
-
+    private Long id;
     private String code;
     private List<CategoryDto> category;
     private float price;
@@ -26,6 +26,7 @@ public class ItemDto {
 
     public static ItemDto from(Item item){
         return ItemDto.builder()
+                .id(item.getId())
                 .category(CategoryDto.from(item.getCategory()))
                 .price(item.getPrice())
                 .dimension(item.getDimension().toString())
