@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.simbirsoft.warehouse_management.model.Category;
 import ru.simbirsoft.warehouse_management.model.Item;
-import ru.simbirsoft.warehouse_management.model.enums.Dimension;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,15 +18,16 @@ public class ItemDto {
     private List<CategoryDto> category;
     private float price;
     private String description;
-    private String dimension;
+    private String name;
 
 
     public static ItemDto from(Item item){
         return ItemDto.builder()
                 .id(item.getId())
+                .name(item.getName())
+                .code(item.getCode())
                 .category(CategoryDto.from(item.getCategory()))
                 .price(item.getPrice())
-                .dimension(item.getDimension().toString())
                 .description(item.getDescription())
                 .build();
     }

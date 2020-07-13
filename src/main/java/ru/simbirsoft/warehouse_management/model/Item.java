@@ -19,6 +19,8 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
     @Column(name = "item_code")
     private String code;
     @ManyToMany
@@ -29,7 +31,5 @@ public class Item {
     @Column(name = "description")
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private Dimension dimension;
 
 }
