@@ -10,6 +10,7 @@ import ru.simbirsoft.warehouse_management.dto.createForms.ItemCreateDto;
 import ru.simbirsoft.warehouse_management.model.Item;
 import ru.simbirsoft.warehouse_management.service.ItemService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,7 @@ public class ItemController {
 
     @ApiOperation(value = "Creates new Item from dto-form and returns Item entity with id")
     @PostMapping("/items/new")
-    private Item newItem(@RequestBody ItemCreateDto itemCreateDto){
+    private Item newItem(@RequestBody @Valid ItemCreateDto itemCreateDto){
         return itemService.createItem(itemCreateDto);
     }
 

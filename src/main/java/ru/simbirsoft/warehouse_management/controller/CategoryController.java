@@ -11,6 +11,7 @@ import ru.simbirsoft.warehouse_management.dto.createForms.CategoryCreateDto;
 import ru.simbirsoft.warehouse_management.model.Category;
 import ru.simbirsoft.warehouse_management.service.CategoryService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,7 +34,7 @@ public class CategoryController {
 
     @ApiOperation(value = "Creates new category from dto-form and returns Category entity with id")
     @PostMapping("/categories/new")
-    private Category newCategory(@RequestBody CategoryCreateDto categoryCreateDto){
+    private Category newCategory(@RequestBody @Valid CategoryCreateDto categoryCreateDto){
         return categoryService.createCategory(categoryCreateDto);
     }
 
