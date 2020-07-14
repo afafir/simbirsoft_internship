@@ -17,7 +17,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import javax.persistence.Entity;
 
 @SpringBootApplication(scanBasePackages = "ru.simbirsoft.warehouse_management")
-@EnableJpaRepositories
 @EnableSwagger2
 public class WarehouseManagementApplication {
     @Bean
