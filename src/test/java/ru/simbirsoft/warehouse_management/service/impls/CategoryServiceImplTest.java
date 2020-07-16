@@ -1,5 +1,6 @@
 package ru.simbirsoft.warehouse_management.service.impls;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -8,15 +9,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.simbirsoft.warehouse_management.dto.CategoryDto;
 import ru.simbirsoft.warehouse_management.dto.createForms.CategoryCreateDto;
+import ru.simbirsoft.warehouse_management.dto.mapper.CategoryMapper;
 import ru.simbirsoft.warehouse_management.exception.NotFoundException;
 import ru.simbirsoft.warehouse_management.model.Category;
 import ru.simbirsoft.warehouse_management.repository.CategoryRepository;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
+
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceImplTest {
 
@@ -25,46 +23,48 @@ class CategoryServiceImplTest {
 
     @Mock
     CategoryRepository categoryRepository;
+    @Mock
+    CategoryMapper categoryMapper;
+
+    Category category;
+    CategoryDto categoryDto;
+
+    @BeforeEach
+    void init(){
+        category = Category.builder()
+                .id(1L)
+                .name("name")
+                .description("desc")
+                .build();
+        categoryDto = CategoryDto.builder()
+                .id(1L)
+                .name("name")
+                .description("desc")
+                .build();
+    }
+
     @Test
     void createCategory() {
         CategoryCreateDto categoryCreateDto = new CategoryCreateDto("name", "desc");
-        Category category = Category.builder()
+        Category toCreate = Category.builder()
                 .name(categoryCreateDto.getName())
                 .description(categoryCreateDto.getDescription())
                 .build();
-        Mockito.doReturn(new Category(1L , "name", "desc")).when(categoryRepository).save(category);
-        Category test = categoryServiceImpl.createCategory(categoryCreateDto);
-        Mockito.verify(categoryRepository, Mockito.times(1)).save(category);
-        assertEquals(category.getName(), test.getName());
+
+        Mockito.doReturn(category).when(categoryRepository).save(toCreate);
+        Mockito.doReturn(categoryDto).when(categoryMapper).mapToDto(category);
+        CategoryDto test = categoryServiceImpl.createCategory(categoryCreateDto);
+        Mockito.verify(categoryRepository, Mockito.times(1)).save(toCreate);
+        assertEquals(toCreate.getName(), test.getName());
     }
 
-    @Test
-    void getAllCategories() {
-        Category one = Category.builder()
-                .description("one")
-                .name("name")
-                .build();
-        Category two = Category.builder()
-                .description("two")
-                .name("two")
-                .build();
-        Category three = Category.builder()
-                .description("three")
-                .name("three")
-                .build();
-        List<Category> categories = new ArrayList<Category> (Arrays.asList(one, two, three));
-        Mockito.doReturn(categories).when(categoryRepository).findAll();
-        List<Category> test = categoryServiceImpl.getAllCategories();
-        assertEquals(3, test.size());
-
-
-    }
 
     @Test
     void getCategoryIfExist() {
         Mockito.doReturn(true).when(categoryRepository).existsById(1L);
-        Mockito.doReturn(Optional.of(new Category(1L , "name", "desc"))).when(categoryRepository).findById(1L);
-        Category test = categoryServiceImpl.getCategory(1L);
+        Mockito.doReturn(category).when(categoryRepository).getOne(1L);
+        Mockito.doReturn(categoryDto).when(categoryMapper).mapToDto(category);
+        CategoryDto test = categoryServiceImpl.getCategory(1L);
             assertEquals(1L, test.getId());
             assertEquals("name", test.getName());
             assertEquals("desc", test.getDescription());
@@ -94,17 +94,18 @@ class CategoryServiceImplTest {
 
     @Test
     void updateCategoryIfExist() {
-        CategoryDto categoryDto = CategoryDto.builder()
-                .id(1L)
-                .description("desc")
-                .name("name")
-                .build();
         Mockito.doReturn(true).when(categoryRepository).existsById(categoryDto.getId());
-        Mockito.doReturn(Optional.of(new Category(1L, "name1", "desc1"))).when(categoryRepository).findById(categoryDto.getId());
-        Category category = categoryServiceImpl.updateCategory(categoryDto);
-        assertEquals(categoryDto.getId(), category.getId());
-        assertEquals(categoryDto.getDescription(), category.getDescription());
-        assertEquals(categoryDto.getName(), category.getName());
+        Category categoryToUpdate = Category.builder()
+                .id(1L)
+                .name("name1")
+                .description("desc1")
+                .build();
+        Mockito.doReturn(categoryToUpdate).when(categoryRepository).getOne(categoryDto.getId());
+        Mockito.doReturn(categoryDto).when(categoryMapper).mapToDto(categoryToUpdate);
+        CategoryDto categoryUpdatedDto = categoryServiceImpl.updateCategory(categoryDto);
+        assertEquals(categoryDto.getId(), categoryUpdatedDto.getId());
+        assertEquals(categoryDto.getDescription(), categoryUpdatedDto.getDescription());
+        assertEquals(categoryDto.getName(), categoryUpdatedDto.getName());
 
     }
 }
