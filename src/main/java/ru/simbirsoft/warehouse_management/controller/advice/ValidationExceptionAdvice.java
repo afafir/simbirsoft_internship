@@ -15,21 +15,19 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class ValidationExceptionAdvice  {
+public class ValidationExceptionAdvice {
 
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", new Date());
-        //Get all errors
-        List<String> errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(x -> x.getDefaultMessage())
-                .collect(Collectors.toList());
-        body.put("errors", errors);
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-    }
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(
+      MethodArgumentNotValidException ex) {
+    Map<String, Object> body = new LinkedHashMap<>();
+    body.put("timestamp", new Date());
+    // Get all errors
+    List<String> errors =
+        ex.getBindingResult().getFieldErrors().stream()
+            .map(x -> x.getDefaultMessage())
+            .collect(Collectors.toList());
+    body.put("errors", errors);
+    return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+  }
 }
