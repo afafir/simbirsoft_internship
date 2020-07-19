@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 public class OrderDto {
+    private Long id;
     private UserDto customer;
     private List<OrderItemDto> orderItems;
     private ShopDto shop;
@@ -23,6 +24,7 @@ public class OrderDto {
 
     public static OrderDto from(Order order){
         OrderDto orderDto = OrderDto.builder()
+                .id(order.getId())
                 .orderItems(OrderItemDto.from(order.getItems()))
                 .isConfirmed(order.getIsConfirmed())
                 .customer(UserDto.from(order.getCustomer()))

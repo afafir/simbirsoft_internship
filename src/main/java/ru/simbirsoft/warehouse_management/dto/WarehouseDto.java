@@ -14,11 +14,12 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 public class WarehouseDto {
-
+    private Long id;
     private String address;
 
     public static WarehouseDto from (Warehouse warehouse){
         return WarehouseDto.builder()
+                .id(warehouse.getId())
                 .address(warehouse.getAddress())
                 .build();
     }
