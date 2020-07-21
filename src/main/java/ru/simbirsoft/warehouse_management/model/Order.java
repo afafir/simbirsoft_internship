@@ -18,27 +18,21 @@ import java.util.List;
 @Builder
 public class Order {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @ManyToOne(
-            cascade = CascadeType.ALL)
-    private User customer;
+  @ManyToOne(cascade = CascadeType.ALL)
+  private User customer;
 
-    @Column(name = "isConfirmed")
-    private Boolean isConfirmed;
+  @Column(name = "isConfirmed")
+  private Boolean isConfirmed;
 
-    @OneToMany(
-            mappedBy = "item",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<OrderItem> items;
+  @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<OrderItem> items;
 
-    @Column(name = "orderedAt")
-    private LocalDateTime orderedAt;
-    @ManyToOne
-    private Shop shop;
+  @Column(name = "orderedAt")
+  private LocalDateTime orderedAt;
 
+  @ManyToOne private Shop shop;
 }

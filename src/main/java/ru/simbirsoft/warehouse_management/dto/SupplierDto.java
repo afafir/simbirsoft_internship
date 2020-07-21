@@ -15,18 +15,6 @@ import java.util.stream.Collectors;
 @Builder
 public class SupplierDto {
 
-    private Long id;
-    private String supplier;
-
-    public static SupplierDto from (Supplier supplier){
-        return SupplierDto.builder()
-                .id(supplier.getId())
-                .supplier(supplier.getName())
-                .build();
-    }
-
-    public static List<SupplierDto> from (List<Supplier> suppliers){
-        return suppliers.stream().map(SupplierDto::from).collect(Collectors.toList());
-    }
-
+  private Long id;
+  private String supplier;
 }

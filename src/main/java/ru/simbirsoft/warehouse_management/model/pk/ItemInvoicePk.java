@@ -11,28 +11,22 @@ import java.util.Objects;
 @AllArgsConstructor
 public class ItemInvoicePk implements Serializable {
 
-    @Column(name = "item_id")
-    private Long itemId;
+  @Column(name = "item_id")
+  private Long itemId;
 
-    @Column (name = "invoice_id")
-    private Long invoiceId;
+  @Column(name = "invoice_id")
+  private Long invoiceId;
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ItemInvoicePk that = (ItemInvoicePk) o;
+    return Objects.equals(itemId, that.itemId) && Objects.equals(invoiceId, that.invoiceId);
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        ItemInvoicePk that = (ItemInvoicePk) o;
-        return Objects.equals(itemId, that.itemId) &&
-                Objects.equals(invoiceId, that.invoiceId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(itemId, invoiceId);
-    }
-
-
-
+  @Override
+  public int hashCode() {
+    return Objects.hash(itemId, invoiceId);
+  }
 }

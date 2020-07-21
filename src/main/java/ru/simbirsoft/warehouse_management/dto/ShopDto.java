@@ -17,16 +17,7 @@ import java.util.List;
 @Builder
 public class ShopDto {
 
-    private Long id;
-    private String name;
-    private WarehouseDto warehouseDto;
-
-    public static ShopDto from(Shop shop){
-        return ShopDto.builder()
-                .id(shop.getId())
-                .name(shop.getName())
-                .warehouseDto(WarehouseDto.from(shop.getWarehouse()))
-                .build();
-    }
-
+  private Long id;
+  private String name;
+  private WarehouseDto warehouseDto;
 }

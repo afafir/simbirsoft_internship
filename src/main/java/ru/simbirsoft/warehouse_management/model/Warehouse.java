@@ -14,10 +14,10 @@ import javax.persistence.*;
 @Data
 @Builder
 public class Warehouse {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "address",nullable = false)
-    private String address;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
+  @Column(name = "address", nullable = false)
+  private String address;
 }

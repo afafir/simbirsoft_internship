@@ -16,25 +16,17 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class Invoice {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @ManyToOne
-    private Supplier supplier;
+  @ManyToOne private Supplier supplier;
 
-    @OneToMany(
-            mappedBy = "item",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<ItemInvoice> items;
+  @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<ItemInvoice> items;
 
-    @Column(name = "arrived_at")
-    private LocalDateTime arrivedAt;
+  @Column(name = "arrived_at")
+  private LocalDateTime arrivedAt;
 
-    @ManyToOne
-    private Warehouse warehouse;
-
-
+  @ManyToOne private Warehouse warehouse;
 }

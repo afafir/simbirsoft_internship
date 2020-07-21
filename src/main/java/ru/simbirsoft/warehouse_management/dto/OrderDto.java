@@ -15,31 +15,10 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 public class OrderDto {
-    private Long id;
-    private UserDto customer;
-    private List<OrderItemDto> orderItems;
-    private ShopDto shop;
-    private boolean isConfirmed;
-    private LocalDateTime orderedAt;
-
-    public static OrderDto from(Order order){
-        OrderDto orderDto = OrderDto.builder()
-                .id(order.getId())
-                .orderItems(OrderItemDto.from(order.getItems()))
-                .isConfirmed(order.getIsConfirmed())
-                .customer(UserDto.from(order.getCustomer()))
-                .build();
-        if (order.getOrderedAt() != null){
-            orderDto.setOrderedAt(order.getOrderedAt());
-        }
-        return orderDto;
-    }
-
-    public static List<OrderDto> from (List<Order> orders){
-        return orders.stream().map(OrderDto::from).collect(Collectors.toList());
-    }
-
-
-
-
+  private Long id;
+  private UserDto customer;
+  private List<OrderItemDto> orderItems;
+  private ShopDto shop;
+  private boolean isConfirmed;
+  private LocalDateTime orderedAt;
 }

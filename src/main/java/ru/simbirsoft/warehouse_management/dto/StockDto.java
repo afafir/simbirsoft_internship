@@ -17,25 +17,8 @@ import java.util.stream.Collectors;
 @Builder
 public class StockDto {
 
-    private Long id;
-    private ItemDto item;
-    private int quantity;
-    private WarehouseDto warehouse;
-
-    public static StockDto from (Stock stock){
-        return StockDto.builder()
-                .id(stock.getId())
-                .item(ItemDto.from(stock.getItem()))
-                .quantity(stock.getQuantity())
-                .warehouse(WarehouseDto.from(stock.getWarehouse()))
-                .build();
-
-    }
-
-    public static List<StockDto> from (List<Stock> stocks){
-        return stocks.stream().map(StockDto::from).collect(Collectors.toList());
-    }
-
-
-
+  private Long id;
+  private ItemDto item;
+  private int quantity;
+  private WarehouseDto warehouse;
 }

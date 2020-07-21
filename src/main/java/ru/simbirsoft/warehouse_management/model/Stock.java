@@ -15,18 +15,14 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class Stock {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @ManyToOne
-    private Item item;
+  @ManyToOne private Item item;
 
-    @Column(name = "quantity",nullable = false)
-    private int quantity;
+  @Column(name = "quantity", nullable = false)
+  private int quantity;
 
-    @ManyToOne
-    private Warehouse warehouse;
-
-
+  @ManyToOne private Warehouse warehouse;
 }
