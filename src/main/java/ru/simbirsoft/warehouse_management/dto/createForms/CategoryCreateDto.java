@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @ApiModel(description = "Form for categories create")
 public class CategoryCreateDto {
   @ApiModelProperty(
-          value = "name of the category",
+          value = "name of the categories",
           name = "name",
           dataType = "String",
           example = "toy"
@@ -27,7 +27,7 @@ public class CategoryCreateDto {
   private String name;
 
   @ApiModelProperty(
-          value = "description of the category",
+          value = "description of the categories",
           name = "description",
           dataType = "String",
           example = "an object for children to play with"
