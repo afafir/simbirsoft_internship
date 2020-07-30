@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.simbirsoft.warehouse_management.dto.ItemDto;
 import ru.simbirsoft.warehouse_management.dto.createForms.ItemCreateDto;
@@ -22,20 +23,20 @@ public class ItemController {
 
   @ApiOperation(value = "returns all items from db")
   @GetMapping("${url.item}")
-  private List<ItemDto> all() {
+  public List<ItemDto> all() {
     return itemService.getAllItems();
   }
 
   @ApiOperation(
       value = "returns item with such id.If categories doesnt exist, returns custom error message ")
   @GetMapping("${url.item}/{id}")
-  private ItemDto getItem(@PathVariable @ApiParam("Id of the item") Long id) {
+  public ItemDto getItem(@PathVariable @ApiParam("Id of the item") Long id) {
     return itemService.getItem(id);
   }
 
   @ApiOperation(value = "Creates new Item from dto-form and returns Item entity with id")
   @PostMapping("${url.item.new}")
-  private ItemDto newItem(@RequestBody @Valid ItemCreateDto itemCreateDto) {
+  public ItemDto newItem(@RequestBody @Valid ItemCreateDto itemCreateDto) {
     return itemService.createItem(itemCreateDto);
   }
 
@@ -43,7 +44,7 @@ public class ItemController {
       value =
           "Delete Item from db with such id. If categories doesnt exist, returns custom error message")
   @DeleteMapping("${url.item}/{id}")
-  private ResponseEntity<String> deleteItem(@PathVariable @ApiParam("Id of the item") Long id) {
+  public ResponseEntity<String> deleteItem(@PathVariable @ApiParam("Id of the item") Long id) {
     itemService.deleteItem(id);
     return new ResponseEntity<>("Item was deleted successfully", HttpStatus.OK);
   }
@@ -53,7 +54,7 @@ public class ItemController {
           "Update item replacing fields in the database with fields from the ItemDto form."
               + " If item or new categories of this item doesnt exist in db, returns custom error message")
   @PutMapping("${url.item.update}")
-  private ItemDto updateItem(@RequestBody ItemDto itemDto) {
+  public ItemDto updateItem(@RequestBody ItemDto itemDto) {
     return itemService.updateItem(itemDto);
   }
 }

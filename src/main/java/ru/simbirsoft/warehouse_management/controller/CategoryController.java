@@ -22,7 +22,7 @@ public class CategoryController {
 
   @ApiOperation(value = "returns all categories from db")
   @GetMapping(value = "${url.category}")
-  private List<CategoryDto> all() {
+  public List<CategoryDto> all() {
     return categoryService.getAllCategories();
   }
 
@@ -30,13 +30,13 @@ public class CategoryController {
       value =
           "returns categories with such id.If categories doesnt exist, returns custom error message ")
   @GetMapping("${url.category}/{id}")
-  private CategoryDto getProduct(@PathVariable @ApiParam("Id of the category") Long id) {
+  public CategoryDto getProduct(@PathVariable @ApiParam("Id of the categories") Long id) {
     return categoryService.getCategory(id);
   }
 
   @ApiOperation(value = "Creates new categories from dto-form and returns Category entity with id")
   @PostMapping("${url.category.new}")
-  private CategoryDto newCategory(@RequestBody @Valid CategoryCreateDto categoryCreateDto) {
+  public CategoryDto newCategory(@RequestBody @Valid CategoryCreateDto categoryCreateDto) {
     return categoryService.createCategory(categoryCreateDto);
   }
 
@@ -44,8 +44,8 @@ public class CategoryController {
       value =
           "Delete categories from db with such id. If categories doesnt exist, returns custom error message")
   @DeleteMapping("${url.category}/{id}")
-  private ResponseEntity<String> deleteCategory(
-      @PathVariable @ApiParam("Id of the category") Long id) {
+  public ResponseEntity<String> deleteCategory(
+      @PathVariable @ApiParam("Id of the categories") Long id) {
     categoryService.deleteCategory(id);
     return new ResponseEntity<>("Category was deleted successfully", HttpStatus.OK);
   }
@@ -55,7 +55,7 @@ public class CategoryController {
           "Update categories replacing fields in the database with fields from the СategoryDto form."
               + " If categories doesnt exist, returns custom error message")
   @PutMapping("${url.category.update}")
-  private CategoryDto updateItem(@RequestBody CategoryDto categoryDto) {
+  public CategoryDto updateItem(@RequestBody CategoryDto categoryDto) {
     return categoryService.updateCategory(categoryDto);
   }
 }

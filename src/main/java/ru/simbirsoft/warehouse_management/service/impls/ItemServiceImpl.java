@@ -43,7 +43,7 @@ public class ItemServiceImpl implements ItemService {
             .map(categoryService::getCategory)
             .map(categoryMapper::map)
             .collect(Collectors.toList());
-    item.setCategory(itemCategories);
+    item.setCategories(itemCategories);
     return itemMapper.mapToDto(itemRepository.save(item));
   }
 
@@ -80,7 +80,7 @@ public class ItemServiceImpl implements ItemService {
               .map(x -> categoryService.getCategory(x.getId()))
               .map(categoryMapper::map)
               .collect(Collectors.toList());
-      item.setCategory(itemCategories);
+      item.setCategories(itemCategories);
       return itemMapper.mapToDto(item);
     } else throw new NotFoundException(Item.class, "id", String.valueOf(itemDto.getId()));
   }
