@@ -85,8 +85,6 @@
                              foreignKeyName="fk_warehouse_stock"
                              references="warehouse(id)"/>
             </column>
-
-
         </createTable>
     </changeSet>
     <changeSet id="changelog-1.7" author="Bulat">
