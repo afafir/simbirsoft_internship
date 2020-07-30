@@ -1,7 +1,14 @@
 package ru.simbirsoft.warehouse_management.model.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+
+@ApiModel
 public enum Role {
-  customer,
-  admin,
-  warehouse_keeper
+  @JsonProperty("customer")
+  CUSTOMER,
+  @JsonProperty("admin")
+  ADMIN,
+  @JsonProperty("warehouse_keeper")
+  WAREHOUSE_KEEPER
 }

@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(name = "item_invoice")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

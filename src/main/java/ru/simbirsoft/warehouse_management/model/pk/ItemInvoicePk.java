@@ -1,6 +1,7 @@
 package ru.simbirsoft.warehouse_management.model.pk;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -9,6 +10,7 @@ import java.util.Objects;
 
 @Embeddable
 @AllArgsConstructor
+@NoArgsConstructor
 public class ItemInvoicePk implements Serializable {
 
   @Column(name = "item_id")
