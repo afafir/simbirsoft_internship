@@ -31,5 +31,38 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="writeoff" author="Bulat">
+        <createTable tableName="writeoff">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="warehouse_id" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="fk_invoice_warehouse"
+                             references="warehouse(id)"/>
+            </column>
+            <column name="is_confirmed" type="boolean" defaultValue="false"/>
+        </createTable>
+        <createTable tableName="item_writeoff">
+            <column name="item_id" type="bigint">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             foreignKeyName="fk_item_writeoff"
+                             references="item(id)"/>
+            </column>
+            <column name="writeoff_id" type="bigint">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             foreignKeyName="fk_writeoff_item"
+                             references="writeoff(id)"/>
+            </column>
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 
 </databaseChangeLog>
