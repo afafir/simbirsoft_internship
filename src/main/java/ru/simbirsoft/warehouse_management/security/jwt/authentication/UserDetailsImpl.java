@@ -1,6 +1,7 @@
 package ru.simbirsoft.warehouse_management.security.jwt.authentication;
 
 import lombok.Builder;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Builder
+@Data
 public class UserDetailsImpl implements UserDetails {
 
   private Long userId;
