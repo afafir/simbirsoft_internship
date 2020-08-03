@@ -1,6 +1,5 @@
 package ru.simbirsoft.warehouse_management.dto;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,6 +47,6 @@ public class InvoiceDto {
   private LocalDateTime arrivedAt;
   @ApiModelProperty(
           value = "Warehouse where invoice take place",
-          name = "supplier")
+          name = "warehouse")
   private WarehouseDto warehouse;
 }
