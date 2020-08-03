@@ -15,7 +15,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Data
 @Builder
-@Table(name = "itemOrder")
+@Table(name = "item_order")
 public class OrderItem implements Serializable {
   @EmbeddedId private OrderItemPk id;
 
@@ -37,7 +37,7 @@ public class OrderItem implements Serializable {
     if (o == null || getClass() != o.getClass()) return false;
 
     OrderItem that = (OrderItem) o;
-    return Objects.equals(item, that.item) && Objects.equals(order, that.order);
+    return Objects.equals(((OrderItem) o).getId(), that.id);
   }
 
   @Override
