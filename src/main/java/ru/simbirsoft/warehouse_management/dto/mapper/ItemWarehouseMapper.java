@@ -13,9 +13,10 @@ public interface ItemWarehouseMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "count", target = "count")
+    @Mapping(target = "warehouse", ignore = true)
     ItemWarehouse map(ItemWarehouseDto itemWarehouseDto);
 
     @InheritInverseConfiguration
-    @Mapping(target = "warehouse.items", ignore = true)
+    @Mapping(target = "warehouse", ignore = true)
     ItemWarehouseDto mapToDto(ItemWarehouse itemWarehouse);
 }

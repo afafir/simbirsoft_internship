@@ -16,5 +16,6 @@ public interface ItemInvoiceMapper {
 
   @InheritInverseConfiguration
   @Mapping(target = "invoice.items", ignore = true)
+  @Mapping(target = "invoice.warehouse.items", ignore = true)
   ItemInvoiceDto mapToDto(ItemInvoice itemInvoice);
 }
