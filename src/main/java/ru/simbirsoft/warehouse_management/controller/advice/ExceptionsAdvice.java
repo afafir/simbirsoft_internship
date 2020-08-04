@@ -68,4 +68,12 @@ public class ExceptionsAdvice {
     apiError.setMessage(e.getMessage());
     return new ResponseEntity<>(apiError, apiError.getStatus());
   }
+
+  @ApiOperation("Handling illegal operations from user")
+  @ExceptionHandler(IllegalStateException.class)
+  public ResponseEntity<Object> handleIllegalStateExcpetion(IllegalStateException e) {
+    ApiError apiError = new ApiError(BAD_REQUEST);
+    apiError.setMessage(e.getMessage());
+    return new ResponseEntity<>(apiError, apiError.getStatus());
+  }
 }
