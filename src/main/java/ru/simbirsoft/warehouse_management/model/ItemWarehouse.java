@@ -1,9 +1,6 @@
 package ru.simbirsoft.warehouse_management.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.simbirsoft.warehouse_management.model.pk.ItemWarehousePk;
 
 import javax.persistence.*;
@@ -17,6 +14,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Data
 @Builder
+@EqualsAndHashCode
 public class ItemWarehouse implements Serializable {
     @EmbeddedId
     private ItemWarehousePk id;
@@ -32,18 +30,4 @@ public class ItemWarehouse implements Serializable {
     @Column(name = "quantity")
     private Integer count;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ItemWarehouse that = (ItemWarehouse) o;
-        return Objects.equals(item, that.item) && Objects.equals(warehouse, that.warehouse);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(item, warehouse);
-    }
 }
