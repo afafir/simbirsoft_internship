@@ -22,7 +22,7 @@ public class OrderItemAddForm {
           dataType = "Long",
           example = "42")
   @NotNull
-  Long itemId;
+  private Long itemId;
 
   @ApiModelProperty(
           value = "id of the item",
@@ -30,7 +30,7 @@ public class OrderItemAddForm {
           dataType = "Long",
           example = "11")
   @NotNull
-  Long orderId;
+  private Long orderId;
 
   @ApiModelProperty(
       value = "count of the item",
@@ -38,5 +38,5 @@ public class OrderItemAddForm {
       dataType = "Integer",
       example = "1")
   @NotNull
-  Integer count;
+  private Integer count;
 }

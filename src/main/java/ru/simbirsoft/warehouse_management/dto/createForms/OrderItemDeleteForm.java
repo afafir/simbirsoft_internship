@@ -19,11 +19,11 @@ public class OrderItemDeleteForm {
 
   @ApiModelProperty(value = "id of the item", name = "item id", dataType = "Long", example = "42")
   @NotNull
-  Long itemId;
+  private Long itemId;
 
   @ApiModelProperty(value = "id of the item", name = "item id", dataType = "Long", example = "11")
   @NotNull
-  Long orderId;
+  private Long orderId;
 
   @ApiModelProperty(
       value = "count of the item to delete",
@@ -31,5 +31,5 @@ public class OrderItemDeleteForm {
       dataType = "Integer",
       example = "1")
   @NotNull
-  Integer count;
+  private Integer count;
 }
