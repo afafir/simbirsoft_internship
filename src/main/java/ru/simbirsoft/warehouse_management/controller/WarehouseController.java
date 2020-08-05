@@ -24,7 +24,7 @@ public class WarehouseController {
 
   @ApiOperation(value = "returns all warehouses from db")
   @GetMapping(value = "${url.warehouse}")
-  public List<WarehouseDto> all() {
+  public List<WarehouseDto> getAll() {
     return warehouseService.getAll();
   }
 
@@ -48,9 +48,9 @@ public class WarehouseController {
           "Delete warehouse from db with such id. If warehouse doesnt exist, returns custom error message")
   @DeleteMapping("${url.warehouse}/{id}")
   @PreAuthorize("hasAuthority('ADMIN')")
-  public ResponseEntity<String> deleteWarehouse(
+  public ResponseEntity<Long> deleteWarehouse(
       @PathVariable @ApiParam("Id of the warehouse") Long id) {
     warehouseService.deleteWarehouse(id);
-    return new ResponseEntity<>("Warehouse was deleted successfully", HttpStatus.OK);
+    return ResponseEntity.ok(id);
   }
 }

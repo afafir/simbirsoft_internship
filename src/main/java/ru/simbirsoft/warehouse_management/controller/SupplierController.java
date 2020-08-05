@@ -28,7 +28,7 @@ public class SupplierController {
 
   @ApiOperation(value = "returns all supplier from db")
   @GetMapping(value = "${url.supplier}")
-  public List<SupplierDto> all() {
+  public List<SupplierDto> getAll() {
     return supplierService.getAll();
   }
 
@@ -40,14 +40,14 @@ public class SupplierController {
     return supplierService.getById(id);
   }
 
-
-    @ApiOperation(
-            value =
-                    "returns supplier with such name.If supplier doesnt exist, returns custom error message ")
-    @GetMapping("${url.supplier.name}/{name}")
-    public SupplierDto getSupplierByName (@PathVariable @ApiParam("Name of the supplier") String name) {
-        return supplierService.getByName(name);
-    }
+  @ApiOperation(
+      value =
+          "returns supplier with such name.If supplier doesnt exist, returns custom error message ")
+  @GetMapping("${url.supplier.name}/{name}")
+  public SupplierDto getSupplierByName(
+      @PathVariable @ApiParam("Name of the supplier") String name) {
+    return supplierService.getByName(name);
+  }
 
   @ApiOperation(value = "Creates new supplier from dto-form and returns Supplier entity with id")
   @PostMapping("${url.supplier.new}")
@@ -61,9 +61,9 @@ public class SupplierController {
           "Delete supplier from db with such id. If supplier doesnt exist, returns custom error message")
   @DeleteMapping("${url.supplier}/{id}")
   @PreAuthorize("hasAuthority('ADMIN')")
-  public ResponseEntity<String> deleteWarehouse(
+  public ResponseEntity<Long> deleteWarehouse(
       @PathVariable @ApiParam("Id of the categories") Long id) {
-      supplierService.deleteSupplier(id);
-    return new ResponseEntity<>("Supplier was deleted successfully", HttpStatus.OK);
+    supplierService.deleteSupplier(id);
+    return ResponseEntity.ok(id);
   }
 }

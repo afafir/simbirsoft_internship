@@ -29,15 +29,15 @@ public class WriteoffController {
 
     @ApiOperation(value = "Get writeoff by id")
     @GetMapping("${url.writeoff}/{id}")
-    public WriteoffDto createInvoice(@ApiParam("Id of the writeoff") @PathVariable Long id) {
+    public WriteoffDto getById(@ApiParam("Id of the writeoff") @PathVariable Long id) {
         return writeoffService.getWriteoffById(id);
     }
 
     @ApiOperation(value = "Get invoice by id")
     @DeleteMapping("${url.writeoff}/{id}")
-    public ResponseEntity<String> deleteInvoice(@ApiParam("Id of the writeoff") @PathVariable Long id) {
+    public ResponseEntity<Long> deleteInvoice(@ApiParam("Id of the writeoff") @PathVariable Long id) {
         writeoffService.deleteById(id);
-        return ResponseEntity.ok("Writeoff was deleted successfully");
+        return ResponseEntity.ok(id);
     }
 
     @ApiOperation(value = "Confirm invoice by id")

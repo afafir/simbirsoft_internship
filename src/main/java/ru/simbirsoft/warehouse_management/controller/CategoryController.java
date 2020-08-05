@@ -3,6 +3,7 @@ package ru.simbirsoft.warehouse_management.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import liquibase.pro.packaged.L;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class CategoryController {
 
   @ApiOperation(value = "returns all categories from db")
   @GetMapping(value = "${url.category}")
-  public List<CategoryDto> all() {
+  public List<CategoryDto> getAll() {
     return categoryService.getAllCategories();
   }
 
@@ -44,10 +45,10 @@ public class CategoryController {
       value =
           "Delete categories from db with such id. If categories doesnt exist, returns custom error message")
   @DeleteMapping("${url.category}/{id}")
-  public ResponseEntity<String> deleteCategory(
+  public ResponseEntity<Long> deleteCategory(
       @PathVariable @ApiParam("Id of the categories") Long id) {
     categoryService.deleteCategory(id);
-    return new ResponseEntity<>("Category was deleted successfully", HttpStatus.OK);
+    return new ResponseEntity<>(id, HttpStatus.OK);
   }
 
   @ApiOperation(

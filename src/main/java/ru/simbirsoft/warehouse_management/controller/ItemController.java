@@ -23,7 +23,7 @@ public class ItemController {
 
   @ApiOperation(value = "returns all items from db")
   @GetMapping("${url.item}")
-  public List<ItemDto> all() {
+  public List<ItemDto> getAll() {
     return itemService.getAllItems();
   }
 
@@ -44,9 +44,9 @@ public class ItemController {
       value =
           "Delete Item from db with such id. If categories doesnt exist, returns custom error message")
   @DeleteMapping("${url.item}/{id}")
-  public ResponseEntity<String> deleteItem(@PathVariable @ApiParam("Id of the item") Long id) {
+  public ResponseEntity<Long> deleteItem(@PathVariable @ApiParam("Id of the item") Long id) {
     itemService.deleteItem(id);
-    return new ResponseEntity<>("Item was deleted successfully", HttpStatus.OK);
+    return new ResponseEntity<>(id, HttpStatus.OK);
   }
 
   @ApiOperation(

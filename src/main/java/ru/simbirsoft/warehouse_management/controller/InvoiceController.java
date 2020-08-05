@@ -28,15 +28,15 @@ public class InvoiceController {
 
   @ApiOperation(value = "Get invoice by id")
   @GetMapping("${url.invoice}/{id}")
-  public InvoiceDto createInvoice(@ApiParam("Id of the invoice") @PathVariable Long id) {
+  public InvoiceDto getById(@ApiParam("Id of the invoice") @PathVariable Long id) {
     return invoiceService.getInvoiceById(id);
   }
 
   @ApiOperation(value = "Get invoice by id")
   @DeleteMapping("${url.invoice}/{id}")
-  public ResponseEntity<String> deleteInvoice(@ApiParam("Id of the invoice") @PathVariable Long id) {
+  public ResponseEntity<Long> deleteInvoice(@ApiParam("Id of the invoice") @PathVariable Long id) {
     invoiceService.deleteById(id);
-    return ResponseEntity.ok("Invoice was deleted successfully");
+    return ResponseEntity.ok(id);
   }
 
   @ApiOperation(value = "Confirm invoice by id")

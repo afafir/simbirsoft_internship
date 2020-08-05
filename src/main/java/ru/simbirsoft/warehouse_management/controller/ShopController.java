@@ -23,7 +23,7 @@ public class ShopController {
 
   @ApiOperation(value = "returns all shops from db")
   @GetMapping(value = "${url.shop}")
-  public List<ShopDto> all() {
+  public List<ShopDto> getAll() {
     return shopService.getAll();
   }
 
@@ -44,17 +44,15 @@ public class ShopController {
       value =
           "Delete Shop from db with such id. If shop doesnt exist, returns custom error message")
   @DeleteMapping("${url.shop}/{id}")
-  public ResponseEntity<String> deleteWarehouse(@PathVariable @ApiParam("Id of the shop") Long id) {
+  public ResponseEntity<Long> deleteWarehouse(@PathVariable @ApiParam("Id of the shop") Long id) {
     shopService.deleteById(id);
-    return new ResponseEntity<>("Shop was deleted successfully", HttpStatus.OK);
+    return ResponseEntity.ok(id);
   }
 
   @ApiOperation(
-      value =
-          "returns shop with such name.If shop doesnt exist, returns custom error message ")
+      value = "returns shop with such name.If shop doesnt exist, returns custom error message ")
   @GetMapping("${url.shop.name}/{name}")
-  public ShopDto getShopByName(
-      @PathVariable @ApiParam("Name of the shop") String name) {
+  public ShopDto getShopByName(@PathVariable @ApiParam("Name of the shop") String name) {
     return shopService.getByName(name);
   }
 }
