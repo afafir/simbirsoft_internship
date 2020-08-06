@@ -22,17 +22,28 @@ public class Order {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.MERGE)
   private User customer;
 
-  @Column(name = "isConfirmed")
+  @Column(name = "is_confirmed")
   private Boolean isConfirmed;
 
-  @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "order", orphanRemoval = true)
   private List<OrderItem> items;
 
-  @Column(name = "orderedAt")
+  @Column(name = "ordered_at")
   private LocalDateTime orderedAt;
 
   @ManyToOne private Shop shop;
+
+  @Transient private float cost;
+
+  @PostLoad
+  public void totalPrice() {
+    float cost = 0;
+    for (OrderItem orderItem : items) {
+      cost += orderItem.getCount() * orderItem.getItem().getPrice();
+    }
+    this.cost = cost;
+  }
 }

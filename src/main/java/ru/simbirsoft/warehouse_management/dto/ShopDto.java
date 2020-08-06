@@ -1,5 +1,6 @@
 package ru.simbirsoft.warehouse_management.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +17,29 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class ShopDto {
-
+  @ApiModelProperty(
+      value = "unique identifier of the shop",
+      name = "id",
+      dataType = "Long",
+      example = "42")
   private Long id;
+
+  @ApiModelProperty(
+      value = "name of the shop",
+      name = "name",
+      dataType = "String",
+      example = "SUPER SHOP")
   private String name;
+
+  @ApiModelProperty(
+          value = "The warehouse that the store is linked to",
+          name = "warehouse")
   private WarehouseDto warehouseDto;
+
+
+  @ApiModelProperty(
+          value = "Orders that were made in this shop",
+          name = "ordrers"
+  )
+  private List<OrderDto> orderDtos;
 }

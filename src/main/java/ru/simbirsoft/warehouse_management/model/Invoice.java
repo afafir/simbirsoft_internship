@@ -22,11 +22,14 @@ public class Invoice {
 
   @ManyToOne private Supplier supplier;
 
-  @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "invoice",cascade = CascadeType.ALL, orphanRemoval = true)
   private List<ItemInvoice> items;
 
   @Column(name = "arrived_at")
   private LocalDateTime arrivedAt;
 
   @ManyToOne private Warehouse warehouse;
+
+  @Column(name = "is_confirmed")
+  private Boolean confirmed;
 }

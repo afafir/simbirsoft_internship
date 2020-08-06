@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * CategoryDto is used to transfer data about Category from Repository layer to Controller layer
- * Contains fields of category
+ * Contains fields of categories
  */
 @Data
 @AllArgsConstructor
@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public class CategoryDto {
 
   @ApiModelProperty(
-      value = "unique identifier of the category",
+      value = "unique identifier of the categories",
       name = "id",
       dataType = "Long",
       example = "42")

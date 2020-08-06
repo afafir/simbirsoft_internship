@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.LazyCollection;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -23,7 +26,13 @@ public class Item {
   @Column(name = "item_code")
   private String code;
 
-  @ManyToMany private List<Category> category;
+  @ManyToMany
+  @JoinTable(
+          name = "item_category",
+          joinColumns = @JoinColumn(name = "item_id"),
+          inverseJoinColumns = @JoinColumn(name = "category_id")
+  )
+  private List<Category> categories;
 
   @Column(name = "price")
   private float price;

@@ -6,7 +6,7 @@ import ru.simbirsoft.warehouse_management.dto.CategoryDto;
 import ru.simbirsoft.warehouse_management.model.Category;
 import java.util.List;
 
-/** Used for transformation from category DTO to category Entity and backwards. */
+/** Used for transformation from categories DTO to categories Entity and backwards. */
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
   Category map(CategoryDto category);

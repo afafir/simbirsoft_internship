@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 /**
  * CategoryDto is used to transfer data about Category from Repository layer to Controller layer
- * Contains fields of category
+ * Contains fields of categories
  */
 @Data
 @AllArgsConstructor
