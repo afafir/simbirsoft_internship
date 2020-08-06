@@ -14,7 +14,6 @@ import java.util.Objects;
 @Data
 @Builder
 @EqualsAndHashCode
-
 public class ItemInvoice implements Serializable {
 
   @EmbeddedId private ItemInvoicePk id;
