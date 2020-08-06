@@ -41,9 +41,9 @@ public class InvoiceController {
 
   @ApiOperation(value = "Confirm invoice by id")
   @PostMapping("${url.invoice.confirm}/{id}")
-  public ResponseEntity<String> confirmInvoice(@ApiParam("id of the invoice to confirm") @PathVariable Long id){
+  public ResponseEntity<Long> confirmInvoice(@ApiParam("id of the invoice to confirm") @PathVariable Long id){
     invoiceService.confirmInvoice(id);
-    return ResponseEntity.ok("Invoice confirmed. Warehouse is replenished");
+    return ResponseEntity.ok(id);
   }
 
   @ApiOperation(value = "Get all not confirmed invoices")

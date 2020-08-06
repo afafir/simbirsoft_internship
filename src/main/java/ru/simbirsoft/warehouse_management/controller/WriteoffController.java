@@ -11,6 +11,7 @@ import ru.simbirsoft.warehouse_management.dto.WriteoffDto;
 import ru.simbirsoft.warehouse_management.dto.createForms.WriteoffCreateDto;
 import ru.simbirsoft.warehouse_management.service.WriteoffService;
 
+import javax.persistence.Id;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class WriteoffController {
 
     @ApiOperation(value = "Create new writeoff. Returns dto of created writeoff ")
     @PostMapping("${url.writeoff.new}")
-    public WriteoffDto createInvoice(@RequestBody @Valid WriteoffCreateDto writeoffCreateDto) {
+    public WriteoffDto createWriteoff(@RequestBody @Valid WriteoffCreateDto writeoffCreateDto) {
         return writeoffService.createWriteoff(writeoffCreateDto);
     }
 
@@ -35,16 +36,16 @@ public class WriteoffController {
 
     @ApiOperation(value = "Get invoice by id")
     @DeleteMapping("${url.writeoff}/{id}")
-    public ResponseEntity<Long> deleteInvoice(@ApiParam("Id of the writeoff") @PathVariable Long id) {
+    public ResponseEntity<Long> deleteWriteoff(@ApiParam("Id of the writeoff") @PathVariable Long id) {
         writeoffService.deleteById(id);
         return ResponseEntity.ok(id);
     }
 
     @ApiOperation(value = "Confirm invoice by id")
     @PostMapping("${url.writeoff.confirm}/{id}")
-    public ResponseEntity<String> confirmInvoice(@ApiParam("id of the writeoff to confirm") @PathVariable Long id){
+    public ResponseEntity<Long> confirmWriteoff(@ApiParam("id of the writeoff to confirm") @PathVariable Long id){
         writeoffService.confirmWriteoff(id);
-        return ResponseEntity.ok("Writeoff confirmed, items are written off");
+        return ResponseEntity.ok(id);
     }
 
     @ApiOperation(value = "Get all not confirmed writeoff")
