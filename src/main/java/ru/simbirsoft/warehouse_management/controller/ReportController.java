@@ -47,6 +47,7 @@ public class ReportController {
 
   @ApiOperation(value = "Creates pdf report about sales in shop with such id")
   @GetMapping(value = "${url.report.sales}/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+  @PreAuthorize("hasAuthority('WAREHOUSE_KEEPER')")
   public ResponseEntity<InputStreamResource> shopReportById(
       @RequestParam(required = true, value = "start time")
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -69,6 +70,7 @@ public class ReportController {
 
   @ApiOperation(value = "Creates pdf report about writeoffs in all warehouses")
   @GetMapping(value = "${url.report.writeoff}", produces = MediaType.APPLICATION_PDF_VALUE)
+  @PreAuthorize("hasAuthority('WAREHOUSE_KEEPER')")
   public ResponseEntity<InputStreamResource> writeoffReportAllWarehouses(
       @RequestParam(required = true, value = "start time")
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -90,6 +92,7 @@ public class ReportController {
 
   @ApiOperation(value = "Creates pdf report about writeoffs in one warehouse with such id")
   @GetMapping(value = "${url.report.writeoff}/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+  @PreAuthorize("hasAuthority('WAREHOUSE_KEEPER')")
   public ResponseEntity<InputStreamResource> writeoffReportByWarehouseId(
       @RequestParam(required = true, value = "start time")
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -112,6 +115,7 @@ public class ReportController {
 
   @ApiOperation(value = "Creates pdf report about revenue in all shops")
   @GetMapping(value = "${url.report.revenue}", produces = MediaType.APPLICATION_PDF_VALUE)
+  @PreAuthorize("hasAuthority('WAREHOUSE_KEEPER')")
   public ResponseEntity<InputStreamResource> allShopsRevenueReport(
       @RequestParam(required = true, value = "start time")
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -133,6 +137,7 @@ public class ReportController {
 
   @ApiOperation(value = "Creates pdf report about revenue in one shop with such id")
   @GetMapping(value = "${url.report.revenue}/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+  @PreAuthorize("hasAuthority('WAREHOUSE_KEEPER')")
   public ResponseEntity<InputStreamResource> shopRevenueReport(
       @RequestParam(required = true, value = "start time")
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -155,6 +160,7 @@ public class ReportController {
 
   @ApiOperation(value = "Creates pdf report about averagechecks in all shops")
   @GetMapping(value = "${url.report.average}", produces = MediaType.APPLICATION_PDF_VALUE)
+  @PreAuthorize("hasAuthority('WAREHOUSE_KEEPER')")
   public ResponseEntity<InputStreamResource> allShopAverageCheckReport(
       @RequestParam(required = true, value = "start time")
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -176,6 +182,7 @@ public class ReportController {
 
   @ApiOperation(value = "Creates pdf report about average check in one shop with such id")
   @GetMapping(value = "${url.report.average}/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+  @PreAuthorize("hasAuthority('WAREHOUSE_KEEPER')")
   public ResponseEntity<InputStreamResource> oneShopAverageCheckReport(
       @RequestParam(required = true, value = "start time")
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
