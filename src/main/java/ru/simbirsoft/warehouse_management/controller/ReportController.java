@@ -34,7 +34,7 @@ public class ReportController {
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
           LocalDateTime end) {
 
-    ByteArrayInputStream bis = reportService.allShopsOrderReport(start, end);
+    ByteArrayInputStream bis = reportService.getAllShopsOrderReport(start, end);
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("Content-Disposition", "attachment; filename=orders.pdf");
@@ -57,7 +57,7 @@ public class ReportController {
           LocalDateTime end,
       @PathVariable @ApiParam("shop id") Long id) {
 
-    ByteArrayInputStream bis = reportService.oneShopOrderReport(id, start, end);
+    ByteArrayInputStream bis = reportService.getOneShopOrderReport(id, start, end);
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("Content-Disposition", "attachment; filename=order.pdf");
@@ -79,7 +79,7 @@ public class ReportController {
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
           LocalDateTime end) {
 
-    ByteArrayInputStream bis = reportService.allWarehousesWriteoffReport(start, end);
+    ByteArrayInputStream bis = reportService.getAllWarehousesWriteoffReport(start, end);
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("Content-Disposition", "attachment; filename=writeoffs.pdf");
@@ -102,7 +102,7 @@ public class ReportController {
           LocalDateTime end,
       @PathVariable @ApiParam("Warehouse id") Long id) {
 
-    ByteArrayInputStream bis = reportService.oneWarehouseWriteoffReport(id, start, end);
+    ByteArrayInputStream bis = reportService.getOneWarehouseWriteoffReport(id, start, end);
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("Content-Disposition", "attachment; filename=writeoff.pdf");
@@ -124,7 +124,7 @@ public class ReportController {
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
           LocalDateTime end) {
 
-    ByteArrayInputStream bis = reportService.allShopsRevenueReport(start, end);
+    ByteArrayInputStream bis = reportService.getAllShopsRevenueReport(start, end);
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("Content-Disposition", "attachment; filename=revenues.pdf");
@@ -147,7 +147,7 @@ public class ReportController {
           LocalDateTime end,
       @PathVariable @ApiParam("Shop id") Long id) {
 
-    ByteArrayInputStream bis = reportService.oneShopRevenueReport(id, start, end);
+    ByteArrayInputStream bis = reportService.getOneShopRevenueReport(id, start, end);
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("Content-Disposition", "attachment; filename=revenue.pdf");
@@ -169,7 +169,7 @@ public class ReportController {
           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
           LocalDateTime end) {
 
-    ByteArrayInputStream bis = reportService.allShopsAverageCheckReport(start, end);
+    ByteArrayInputStream bis = reportService.getAllShopsAverageCheckReport(start, end);
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("Content-Disposition", "attachment; filename=averageChecks.pdf");
@@ -192,7 +192,7 @@ public class ReportController {
           LocalDateTime end,
       @PathVariable @ApiParam("Shop id") Long id) {
 
-    ByteArrayInputStream bis = reportService.oneShopAverageCheckReport(id, start, end);
+    ByteArrayInputStream bis = reportService.getOneShopAverageCheckReport(id, start, end);
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("Content-Disposition", "attachment; filename=averageCheck.pdf");
