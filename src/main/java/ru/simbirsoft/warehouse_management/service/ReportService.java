@@ -13,7 +13,7 @@ public interface ReportService {
    * @param end - Time until which data is taken
    * @return ByteArrayInput stream of pdf document
    */
-  ByteArrayInputStream allShopsOrderReport(LocalDateTime start, LocalDateTime end);
+  ByteArrayInputStream getAllShopsOrderReport(LocalDateTime start, LocalDateTime end);
 
   /**
    * Generate pdf report about sales of one shop
@@ -23,7 +23,7 @@ public interface ReportService {
    * @param end - Time until which data is taken
    * @return ByteArrayInput stream of pdf document
    */
-  ByteArrayInputStream oneShopOrderReport(Long shopId, LocalDateTime start, LocalDateTime end);
+  ByteArrayInputStream getOneShopOrderReport(Long shopId, LocalDateTime start, LocalDateTime end);
 
   /**
    * Generate pdf report about writeoffs of all warehouses
@@ -32,8 +32,7 @@ public interface ReportService {
    * @param end - Time until which data is taken
    * @return ByteArrayInput stream of pdf document
    */
-  ByteArrayInputStream allWarehousesWriteoffReport(LocalDateTime start, LocalDateTime end);
-
+  ByteArrayInputStream getAllWarehousesWriteoffReport(LocalDateTime start, LocalDateTime end);
 
   /**
    * Generate pdf report about writeoffs of one warehouse
@@ -43,9 +42,8 @@ public interface ReportService {
    * @param end - Time until which data is taken
    * @return ByteArrayInput stream of pdf document
    */
-  ByteArrayInputStream oneWarehouseWriteoffReport(
+  ByteArrayInputStream getOneWarehouseWriteoffReport(
       Long warehouseId, LocalDateTime start, LocalDateTime end);
-
 
   /**
    * Generate pdf report about revenue of all shops
@@ -54,7 +52,7 @@ public interface ReportService {
    * @param end - Time until which data is taken
    * @return ByteArrayInput stream of pdf document
    */
-  ByteArrayInputStream allShopsRevenueReport(LocalDateTime start, LocalDateTime end);
+  ByteArrayInputStream getAllShopsRevenueReport(LocalDateTime start, LocalDateTime end);
 
   /**
    * Generate pdf report about revenue of one shop
@@ -64,8 +62,7 @@ public interface ReportService {
    * @param end - Time until which data is taken
    * @return ByteArrayInput stream of pdf document
    */
-  ByteArrayInputStream oneShopRevenueReport(Long shopId, LocalDateTime start, LocalDateTime end);
-
+  ByteArrayInputStream getOneShopRevenueReport(Long shopId, LocalDateTime start, LocalDateTime end);
 
   /**
    * Generate pdf report about average checks of all shops
@@ -74,7 +71,7 @@ public interface ReportService {
    * @param end - Time until which data is taken
    * @return ByteArrayInput stream of pdf document
    */
-  ByteArrayInputStream allShopsAverageCheckReport(LocalDateTime start, LocalDateTime end);
+  ByteArrayInputStream getAllShopsAverageCheckReport(LocalDateTime start, LocalDateTime end);
 
   /**
    * Generate pdf report about average check of one shop
@@ -84,5 +81,6 @@ public interface ReportService {
    * @param end - Time until which data is taken
    * @return ByteArrayInput stream of pdf document
    */
-  ByteArrayInputStream oneShopAverageCheckReport(Long shopId, LocalDateTime start, LocalDateTime end);
+  ByteArrayInputStream getOneShopAverageCheckReport(
+      Long shopId, LocalDateTime start, LocalDateTime end);
 }

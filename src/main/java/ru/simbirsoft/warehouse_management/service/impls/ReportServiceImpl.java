@@ -37,7 +37,7 @@ public class ReportServiceImpl implements ReportService {
   private final WarehouseMapper warehouseMapper;
 
   @Override
-  public ByteArrayInputStream allShopsOrderReport(LocalDateTime start, LocalDateTime end) {
+  public ByteArrayInputStream getAllShopsOrderReport(LocalDateTime start, LocalDateTime end) {
     Map<Shop, Map<Item, Integer>> countOfSaledItemsForEachShop =
         salesCounterService.getCountOfSaledItemsForAllShop(start, end);
     Document document = new Document();
@@ -54,7 +54,7 @@ public class ReportServiceImpl implements ReportService {
   }
 
   @Override
-  public ByteArrayInputStream oneShopOrderReport(
+  public ByteArrayInputStream getOneShopOrderReport(
       Long shopId, LocalDateTime start, LocalDateTime end) {
     Map<Item, Integer> countOfSaledItemsForOneShop =
         salesCounterService.getCountOfSaledItemsForOneShop(start, end, shopId);
@@ -73,7 +73,7 @@ public class ReportServiceImpl implements ReportService {
   }
 
   @Override
-  public ByteArrayInputStream allWarehousesWriteoffReport(LocalDateTime start, LocalDateTime end) {
+  public ByteArrayInputStream getAllWarehousesWriteoffReport(LocalDateTime start, LocalDateTime end) {
     Map<Warehouse, Map<Item, Integer>> countOfWriteoffedItemsForEachWarehouse =
         salesCounterService.getCountOfWriteoffedItemsForAllWarehouses(start, end);
     Document document = new Document();
@@ -91,7 +91,7 @@ public class ReportServiceImpl implements ReportService {
   }
 
   @Override
-  public ByteArrayInputStream oneWarehouseWriteoffReport(
+  public ByteArrayInputStream getOneWarehouseWriteoffReport(
       Long warehouseId, LocalDateTime start, LocalDateTime end) {
     Map<Item, Integer> countOfWriteoffedItemsForOneWarehouse =
         salesCounterService.getCountOfWriteoffedItemsForOneWarehouses(start, end, warehouseId);
@@ -112,7 +112,7 @@ public class ReportServiceImpl implements ReportService {
   }
 
   @Override
-  public ByteArrayInputStream allShopsRevenueReport(LocalDateTime start, LocalDateTime end) {
+  public ByteArrayInputStream getAllShopsRevenueReport(LocalDateTime start, LocalDateTime end) {
     Map<Shop, Double> allShosRevenue =
         revenueCalculationService.calculateRevenueForAllShops(start, end);
     Document document = new Document();
@@ -129,7 +129,7 @@ public class ReportServiceImpl implements ReportService {
   }
 
   @Override
-  public ByteArrayInputStream oneShopRevenueReport(
+  public ByteArrayInputStream getOneShopRevenueReport(
       Long shopId, LocalDateTime start, LocalDateTime end) {
     Double shopRevenue = revenueCalculationService.calculateRevenueForOneShop(start, end, shopId);
     Document document = new Document();
@@ -147,7 +147,7 @@ public class ReportServiceImpl implements ReportService {
   }
 
   @Override
-  public ByteArrayInputStream allShopsAverageCheckReport(LocalDateTime start, LocalDateTime end) {
+  public ByteArrayInputStream getAllShopsAverageCheckReport(LocalDateTime start, LocalDateTime end) {
     Map<Shop, Double> allShopAverageCheck =
         revenueCalculationService.calculateAverageCheckForAllShops(start, end);
     Document document = new Document();
@@ -164,7 +164,7 @@ public class ReportServiceImpl implements ReportService {
   }
 
   @Override
-  public ByteArrayInputStream oneShopAverageCheckReport(
+  public ByteArrayInputStream getOneShopAverageCheckReport(
       Long shopId, LocalDateTime start, LocalDateTime end) {
     Double shopAverageCheck =
         revenueCalculationService.calculateAverageCheckForOneShop(start, end, shopId);
