@@ -26,7 +26,7 @@ public class RevenueCalculationServiceImpl implements RevenueCalculationService 
     if (!shopRepository.existsById(shopId)) {
       throw new NotFoundException(Shop.class, "id", String.valueOf(shopId));
     }
-    List<Order> orders = orderRepository.findByOrderedAtBetweenAndShopIdAndIsConfirmedTrue(start, end, shopId);
+    List<Order> orders = orderRepository.findAllConfirmedBetweenDateForShop(start, end, shopId);
     return orders.stream().mapToDouble(Order::getCost).sum();
   }
 
@@ -46,7 +46,7 @@ public class RevenueCalculationServiceImpl implements RevenueCalculationService 
     if (!shopRepository.existsById(shopId)) {
       throw new NotFoundException(Shop.class, "id", String.valueOf(shopId));
     }
-    List<Order> orders = orderRepository.findByOrderedAtBetweenAndShopIdAndIsConfirmedTrue(start, end, shopId);
+    List<Order> orders = orderRepository.findAllConfirmedBetweenDateForShop(start, end, shopId);
     return orders.stream().mapToDouble(Order::getCost).summaryStatistics().getAverage();
   }
 

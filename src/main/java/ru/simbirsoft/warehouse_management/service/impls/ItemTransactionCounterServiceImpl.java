@@ -30,7 +30,7 @@ public class ItemTransactionCounterServiceImpl implements ItemTransactionCounter
     if (!shopRepository.existsById(shopId)) {
       throw new NotFoundException(Shop.class, "id", String.valueOf(shopId));
     }
-    List<Order> orders = orderRepository.findByOrderedAtBetweenAndShopIdAndIsConfirmedTrue(start, end, shopId);
+    List<Order> orders = orderRepository.findAllConfirmedBetweenDateForShop(start, end, shopId);
     Map<Item, Integer> itemsForShop = new LinkedHashMap<>();
     for (Order order : orders) {
       for (OrderItem item : order.getItems()) {
@@ -47,7 +47,7 @@ public class ItemTransactionCounterServiceImpl implements ItemTransactionCounter
   @Override
   public Map<Shop, Map<Item, Integer>> getCountOfSaledItemsForAllShop(
       LocalDateTime start, LocalDateTime end) {
-    List<Order> orders = orderRepository.findByOrderedAtBetweenAndIsConfirmedTrue(start, end);
+    List<Order> orders = orderRepository.findAllConfirmedBetweenDate(start, end);
     Map<Shop, Map<Item, Integer>> itemsForShops = new LinkedHashMap<>();
     for (Order order : orders) {
       if (!itemsForShops.containsKey(order.getShop())) {
@@ -69,7 +69,7 @@ public class ItemTransactionCounterServiceImpl implements ItemTransactionCounter
   @Override
   public Map<Warehouse, Map<Item, Integer>> getCountOfWriteoffedItemsForAllWarehouses(
       LocalDateTime start, LocalDateTime end) {
-    List<Writeoff> writeoffs = writeoffRepository.findByTimeBetweenAndConfirmedTrue(start, end);
+    List<Writeoff> writeoffs = writeoffRepository.findAllBetweenDates(start, end);
     Map<Warehouse, Map<Item, Integer>> writeoffedItemsForWarehouses = new LinkedHashMap<>();
     for (Writeoff writeoff : writeoffs) {
       if (!writeoffedItemsForWarehouses.containsKey(writeoff.getWarehouse())) {
@@ -96,7 +96,7 @@ public class ItemTransactionCounterServiceImpl implements ItemTransactionCounter
     if (!warehouseRepository.existsById(warehouseId)) {
       throw new NotFoundException(Warehouse.class, "id", String.valueOf(warehouseId));
     }
-    List<Writeoff> writeoffs = writeoffRepository.findByTimeBetweenAndWarehouseIdAndConfirmedTrue(start, end, warehouseId);
+    List<Writeoff> writeoffs = writeoffRepository.findAllBetweenDatesForWarehouse(start, end, warehouseId);
     Map<Item, Integer> writeoffedItemsForWarehouse = new LinkedHashMap<>();
     for (Writeoff writeoff : writeoffs) {
       for (ItemWriteoff item : writeoff.getItems()) {
