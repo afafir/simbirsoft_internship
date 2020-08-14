@@ -7,13 +7,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.simbirsoft.warehouse_management.dto.mapper.CategoryMapper;
 import ru.simbirsoft.warehouse_management.exception.NotFoundException;
 import ru.simbirsoft.warehouse_management.model.*;
-import ru.simbirsoft.warehouse_management.model.pk.ItemWarehousePk;
 import ru.simbirsoft.warehouse_management.model.pk.ItemWriteoffPk;
 import ru.simbirsoft.warehouse_management.model.pk.OrderItemPk;
-import ru.simbirsoft.warehouse_management.model.user.User;
 import ru.simbirsoft.warehouse_management.repository.*;
 
 import java.time.LocalDateTime;
@@ -127,7 +124,7 @@ class ItemTransactionCounterServiceImplTest {
   void getCountOfWriteoffedItemsForAllWarehouses() {
     Mockito.doReturn(Arrays.asList(writeoff, writeoff1, writeoff2))
         .when(writeoffRepository)
-        .findByTimeBetweenAndConfirmedTrue(start, end);
+        .findAllBetweenDates(start, end);
     Map<Warehouse, Map<Item, Integer>> countOfWriteoffedItemsForAllWarehouses =
         itemTransactionCounterService.getCountOfWriteoffedItemsForAllWarehouses(start, end);
     assertEquals(2, countOfWriteoffedItemsForAllWarehouses.size());
@@ -141,7 +138,7 @@ class ItemTransactionCounterServiceImplTest {
     Mockito.doReturn(true).when(warehouseRepository).existsById(1L);
     Mockito.doReturn(Arrays.asList(writeoff, writeoff1))
         .when(writeoffRepository)
-        .findByTimeBetweenAndWarehouseIdAndConfirmedTrue(start, end, 1L);
+        .findAllBetweenDatesForWarehouse(start, end, 1L);
     Map<Item, Integer> countOfWriteoffedItemsForOneWarehouses =
         itemTransactionCounterService.getCountOfWriteoffedItemsForOneWarehouses(start, end, 1L);
     assertEquals(6, countOfWriteoffedItemsForOneWarehouses.get(item));
@@ -153,8 +150,9 @@ class ItemTransactionCounterServiceImplTest {
   void getCountOfWriteoffedItemsForOneWarehousesThatDoesntExist() {
     Mockito.doReturn(false).when(warehouseRepository).existsById(1L);
     assertThrows(
-            NotFoundException.class,
-            () -> itemTransactionCounterService.getCountOfWriteoffedItemsForOneWarehouses(start, end, 1L));
+        NotFoundException.class,
+        () ->
+            itemTransactionCounterService.getCountOfWriteoffedItemsForOneWarehouses(
+                start, end, 1L));
   }
-
 }

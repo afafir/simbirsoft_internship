@@ -25,9 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class RevenueCalculationServiceImplTest {
 
-  @InjectMocks
-  @Spy
-  private RevenueCalculationServiceImpl revenueCalculationService;
+  @InjectMocks @Spy private RevenueCalculationServiceImpl revenueCalculationService;
 
   @Mock private OrderRepository orderRepository;
   @Mock private ShopRepository shopRepository;
@@ -85,19 +83,22 @@ class RevenueCalculationServiceImplTest {
   @Test
   void calculateRevenueForOneShopThatDoesntExist() {
     Mockito.doReturn(false).when(shopRepository).existsById(1L);
-    assertThrows(NotFoundException.class, ()->revenueCalculationService.calculateRevenueForOneShop(start, end, 1L));
+    assertThrows(
+        NotFoundException.class,
+        () -> revenueCalculationService.calculateRevenueForOneShop(start, end, 1L));
   }
 
   @Test
   void calculateRevenueForAllShops() {
-    Mockito.doReturn(Arrays.asList(shop1, shop2))
-            .when(shopRepository)
-            .findAll();
-    Mockito.doReturn(16.0).when(revenueCalculationService)
-            .calculateRevenueForOneShop(start, end, 1L);
-    Mockito.doReturn(1.0).when(revenueCalculationService)
-            .calculateRevenueForOneShop(start, end, 2L);
-    Map<Shop, Double> shopDoubleMap = revenueCalculationService.calculateRevenueForAllShops(start, end);
+    Mockito.doReturn(Arrays.asList(shop1, shop2)).when(shopRepository).findAll();
+    Mockito.doReturn(16.0)
+        .when(revenueCalculationService)
+        .calculateRevenueForOneShop(start, end, 1L);
+    Mockito.doReturn(1.0)
+        .when(revenueCalculationService)
+        .calculateRevenueForOneShop(start, end, 2L);
+    Map<Shop, Double> shopDoubleMap =
+        revenueCalculationService.calculateRevenueForAllShops(start, end);
     assertEquals(2, shopDoubleMap.size());
     assertEquals(16.0, shopDoubleMap.get(shop1));
     assertEquals(1.0, shopDoubleMap.get(shop2));
@@ -107,22 +108,23 @@ class RevenueCalculationServiceImplTest {
   void calculateAverageCheckForOneShop() {
     Mockito.doReturn(true).when(shopRepository).existsById(1L);
     Mockito.doReturn(Arrays.asList(order, order1))
-            .when(orderRepository)
-            .findByOrderedAtBetweenAndShopIdAndIsConfirmedTrue(start, end, 1L);
+        .when(orderRepository)
+        .findByOrderedAtBetweenAndShopIdAndIsConfirmedTrue(start, end, 1L);
     double average = revenueCalculationService.calculateAverageCheckForOneShop(start, end, 1L);
     assertEquals(average, 8.0);
   }
 
   @Test
   void calculateAverageCheckForAllShops() {
-    Mockito.doReturn(Arrays.asList(shop1, shop2))
-            .when(shopRepository)
-            .findAll();
-    Mockito.doReturn(8.0).when(revenueCalculationService)
-            .calculateAverageCheckForOneShop(start, end, 1L);
-    Mockito.doReturn(6.0).when(revenueCalculationService)
-            .calculateAverageCheckForOneShop(start, end, 2L);
-    Map<Shop, Double> shopDoubleMap = revenueCalculationService.calculateAverageCheckForAllShops(start, end);
+    Mockito.doReturn(Arrays.asList(shop1, shop2)).when(shopRepository).findAll();
+    Mockito.doReturn(8.0)
+        .when(revenueCalculationService)
+        .calculateAverageCheckForOneShop(start, end, 1L);
+    Mockito.doReturn(6.0)
+        .when(revenueCalculationService)
+        .calculateAverageCheckForOneShop(start, end, 2L);
+    Map<Shop, Double> shopDoubleMap =
+        revenueCalculationService.calculateAverageCheckForAllShops(start, end);
     assertEquals(2, shopDoubleMap.size());
     assertEquals(8.0, shopDoubleMap.get(shop1));
     assertEquals(6.0, shopDoubleMap.get(shop2));

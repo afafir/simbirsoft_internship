@@ -7,26 +7,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 import org.springframework.test.util.ReflectionTestUtils;
 import ru.simbirsoft.warehouse_management.dto.ShopDto;
 import ru.simbirsoft.warehouse_management.dto.WarehouseDto;
 import ru.simbirsoft.warehouse_management.dto.mapper.ShopMapper;
-import ru.simbirsoft.warehouse_management.dto.mapper.ShopMapperImpl;
 import ru.simbirsoft.warehouse_management.dto.mapper.WarehouseMapper;
-import ru.simbirsoft.warehouse_management.dto.mapper.WarehouseMapperImpl;
 import ru.simbirsoft.warehouse_management.model.*;
 import ru.simbirsoft.warehouse_management.model.pk.ItemWriteoffPk;
 import ru.simbirsoft.warehouse_management.model.pk.OrderItemPk;
 import ru.simbirsoft.warehouse_management.service.ItemTransactionCounterService;
 import ru.simbirsoft.warehouse_management.service.ShopService;
 import ru.simbirsoft.warehouse_management.service.WarehouseService;
-import ru.simbirsoft.warehouse_management.util.PdfReportUtil;
 import ru.simbirsoft.warehouse_management.util.impl.ItextPdfReportUtil;
 
 import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
@@ -102,7 +97,7 @@ class ReportServiceImplTest {
     Mockito.doReturn(Map.of(shop1, Map.of(item1, 5, item, 3), shop2, Map.of(item, 10)))
         .when(salesCounterService)
         .getCountOfSaledItemsForAllShop(start, end);
-    ByteArrayInputStream byteArrayInputStream = reportService.allShopsOrderReport(start, end);
+    ByteArrayInputStream byteArrayInputStream = reportService.getAllShopsOrderReport(start, end);
     assertTrue(byteArrayInputStream.markSupported());
     assertNotEquals(0, byteArrayInputStream.available());
   }
@@ -114,7 +109,7 @@ class ReportServiceImplTest {
         .getCountOfSaledItemsForOneShop(start, end, 1L);
     Mockito.doReturn(ShopDto.builder().id(1L).name("shop1").build()).when(shopService).getById(1L);
     Mockito.doReturn(shop1).when(shopMapper).map(any());
-    ByteArrayInputStream byteArrayInputStream = reportService.oneShopOrderReport(1L, start, end);
+    ByteArrayInputStream byteArrayInputStream = reportService.getOneShopOrderReport(1L, start, end);
     assertTrue(byteArrayInputStream.markSupported());
     assertNotEquals(0, byteArrayInputStream.available());
   }
@@ -124,7 +119,8 @@ class ReportServiceImplTest {
     Mockito.doReturn(Map.of(warehouse1, Map.of(item1, 5, item, 3), warehouse2, Map.of(item, 10)))
         .when(salesCounterService)
         .getCountOfWriteoffedItemsForAllWarehouses(start, end);
-    ByteArrayInputStream byteArrayInputStream = reportService.allWarehousesWriteoffReport(start, end);
+    ByteArrayInputStream byteArrayInputStream =
+        reportService.getAllWarehousesWriteoffReport(start, end);
     assertTrue(byteArrayInputStream.markSupported());
     assertNotEquals(0, byteArrayInputStream.available());
   }
@@ -132,11 +128,14 @@ class ReportServiceImplTest {
   @Test
   void oneWarehouseWriteoffReport() {
     Mockito.doReturn(Map.of(item1, 5, item, 3))
-            .when(salesCounterService)
-            .getCountOfWriteoffedItemsForOneWarehouses(start, end, 1L);
-    Mockito.doReturn(WarehouseDto.builder().id(1L).address("address1").build()).when(warehouseService).getById(1L);
+        .when(salesCounterService)
+        .getCountOfWriteoffedItemsForOneWarehouses(start, end, 1L);
+    Mockito.doReturn(WarehouseDto.builder().id(1L).address("address1").build())
+        .when(warehouseService)
+        .getById(1L);
     Mockito.doReturn(warehouse1).when(warehouseMapper).map(any());
-    ByteArrayInputStream byteArrayInputStream = reportService.oneWarehouseWriteoffReport(1L, start, end);
+    ByteArrayInputStream byteArrayInputStream =
+        reportService.getOneWarehouseWriteoffReport(1L, start, end);
     assertTrue(byteArrayInputStream.markSupported());
     assertNotEquals(0, byteArrayInputStream.available());
   }
@@ -144,9 +143,9 @@ class ReportServiceImplTest {
   @Test
   void allShopsRevenueReport() {
     Mockito.doReturn(Map.of(shop1, 1.0, shop2, 10.0))
-            .when(revenueCalculationService)
-            .calculateRevenueForAllShops(start, end);
-    ByteArrayInputStream byteArrayInputStream = reportService.allShopsRevenueReport(start, end);
+        .when(revenueCalculationService)
+        .calculateRevenueForAllShops(start, end);
+    ByteArrayInputStream byteArrayInputStream = reportService.getAllShopsRevenueReport(start, end);
     assertTrue(byteArrayInputStream.markSupported());
     assertNotEquals(0, byteArrayInputStream.available());
   }
@@ -154,11 +153,11 @@ class ReportServiceImplTest {
   @Test
   void oneShopRevenueReport() {
     Mockito.doReturn(10.0)
-            .when(revenueCalculationService)
-            .calculateRevenueForOneShop(start, end, 1L);
+        .when(revenueCalculationService)
+        .calculateRevenueForOneShop(start, end, 1L);
     Mockito.doReturn(ShopDto.builder().id(1L).name("shop1").build()).when(shopService).getById(1L);
     Mockito.doReturn(shop1).when(shopMapper).map(any());
-    ByteArrayInputStream byteArrayInputStream = reportService.oneShopRevenueReport(1L, start, end);
+    ByteArrayInputStream byteArrayInputStream = reportService.getOneShopRevenueReport(1L, start, end);
     assertTrue(byteArrayInputStream.markSupported());
     assertNotEquals(0, byteArrayInputStream.available());
   }
@@ -166,9 +165,10 @@ class ReportServiceImplTest {
   @Test
   void allShopsAverageCheckReport() {
     Mockito.doReturn(Map.of(shop1, 1.0, shop2, 10.0))
-            .when(revenueCalculationService)
-            .calculateAverageCheckForAllShops(start, end);
-    ByteArrayInputStream byteArrayInputStream = reportService.allShopsAverageCheckReport(start, end);
+        .when(revenueCalculationService)
+        .calculateAverageCheckForAllShops(start, end);
+    ByteArrayInputStream byteArrayInputStream =
+        reportService.getAllShopsAverageCheckReport(start, end);
     assertTrue(byteArrayInputStream.markSupported());
     assertNotEquals(0, byteArrayInputStream.available());
   }
@@ -176,11 +176,12 @@ class ReportServiceImplTest {
   @Test
   void oneShopAverageCheckReport() {
     Mockito.doReturn(10.0)
-            .when(revenueCalculationService)
-            .calculateAverageCheckForOneShop(start, end, 1L);
+        .when(revenueCalculationService)
+        .calculateAverageCheckForOneShop(start, end, 1L);
     Mockito.doReturn(ShopDto.builder().id(1L).name("shop1").build()).when(shopService).getById(1L);
     Mockito.doReturn(shop1).when(shopMapper).map(any());
-    ByteArrayInputStream byteArrayInputStream = reportService.oneShopAverageCheckReport(1L, start, end);
+    ByteArrayInputStream byteArrayInputStream =
+        reportService.getOneShopAverageCheckReport(1L, start, end);
     assertTrue(byteArrayInputStream.markSupported());
     assertNotEquals(0, byteArrayInputStream.available());
   }
