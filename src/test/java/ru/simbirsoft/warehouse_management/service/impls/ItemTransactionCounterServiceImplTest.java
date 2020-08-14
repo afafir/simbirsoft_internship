@@ -91,7 +91,7 @@ class ItemTransactionCounterServiceImplTest {
     Mockito.doReturn(true).when(shopRepository).existsById(1L);
     Mockito.doReturn(Arrays.asList(order, order1))
         .when(orderRepository)
-        .findByOrderedAtBetweenAndShopIdAndIsConfirmedTrue(start, end, 1L);
+        .findAllConfirmedBetweenDateForShop(start, end, 1L);
     Map<Item, Integer> countOfSaledItemsForOneShop =
         itemTransactionCounterService.getCountOfSaledItemsForOneShop(start, end, 1L);
     assertEquals(6, countOfSaledItemsForOneShop.get(item));
@@ -111,7 +111,7 @@ class ItemTransactionCounterServiceImplTest {
   void getCountOfSaledItemsForAllShop() {
     Mockito.doReturn(Arrays.asList(order, order1, order2))
         .when(orderRepository)
-        .findByOrderedAtBetweenAndIsConfirmedTrue(start, end);
+        .findAllConfirmedBetweenDate(start, end);
     Map<Shop, Map<Item, Integer>> countOfSaledItemsForAllShop =
         itemTransactionCounterService.getCountOfSaledItemsForAllShop(start, end);
     assertEquals(2, countOfSaledItemsForAllShop.size());

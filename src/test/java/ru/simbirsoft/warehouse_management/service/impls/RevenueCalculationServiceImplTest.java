@@ -10,7 +10,6 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.simbirsoft.warehouse_management.exception.NotFoundException;
 import ru.simbirsoft.warehouse_management.model.*;
-import ru.simbirsoft.warehouse_management.model.pk.ItemWriteoffPk;
 import ru.simbirsoft.warehouse_management.model.pk.OrderItemPk;
 import ru.simbirsoft.warehouse_management.repository.OrderRepository;
 import ru.simbirsoft.warehouse_management.repository.ShopRepository;
@@ -23,7 +22,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class RevenueCalculationServiceImplTest {
+class kRevenueCalculationServiceImplTest {
 
   @InjectMocks @Spy private RevenueCalculationServiceImpl revenueCalculationService;
 
@@ -75,7 +74,7 @@ class RevenueCalculationServiceImplTest {
     Mockito.doReturn(true).when(shopRepository).existsById(1L);
     Mockito.doReturn(Arrays.asList(order, order1))
         .when(orderRepository)
-        .findByOrderedAtBetweenAndShopIdAndIsConfirmedTrue(start, end, 1L);
+        .findAllConfirmedBetweenDateForShop(start, end, 1L);
     double revenueForOneShop = revenueCalculationService.calculateRevenueForOneShop(start, end, 1L);
     assertEquals(revenueForOneShop, 16);
   }
@@ -109,7 +108,7 @@ class RevenueCalculationServiceImplTest {
     Mockito.doReturn(true).when(shopRepository).existsById(1L);
     Mockito.doReturn(Arrays.asList(order, order1))
         .when(orderRepository)
-        .findByOrderedAtBetweenAndShopIdAndIsConfirmedTrue(start, end, 1L);
+        .findAllConfirmedBetweenDateForShop(start, end, 1L);
     double average = revenueCalculationService.calculateAverageCheckForOneShop(start, end, 1L);
     assertEquals(average, 8.0);
   }
