@@ -1,5 +1,6 @@
 package ru.simbirsoft.warehouse_management.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,18 +15,19 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 public class OrderItemDto {
-
-   private ItemDto itemDto;
-   private int quantity;
-
-   public static OrderItemDto from(OrderItem orderItem){
-      return OrderItemDto.builder()
-              .itemDto(ItemDto.from(orderItem.getItem()))
-              .quantity(orderItem.getCount())
-              .build();
-   }
-
-   public static List<OrderItemDto> from(List<OrderItem> orderItems){
-      return orderItems.stream().map(OrderItemDto::from).collect(Collectors.toList());
-   }
+  @ApiModelProperty(
+          value = "Order",
+          name = "order"
+  )
+  private OrderDto order;
+  @ApiModelProperty(
+          value = "Item in the order",
+          name = "item"
+  )
+  private ItemDto item;
+  @ApiModelProperty(
+          value = "count of item in order",
+          name = "count"
+  )
+  private int count;
 }

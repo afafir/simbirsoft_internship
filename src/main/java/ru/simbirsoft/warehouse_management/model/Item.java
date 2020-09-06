@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.simbirsoft.warehouse_management.model.enums.Dimension;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.LazyCollection;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,20 +17,26 @@ import java.util.List;
 @Entity
 @Table(name = "item")
 public class Item {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "item_code")
-    private String code;
-    @ManyToMany
-    private List<Category> category;
-    @Column(name = "price")
-    private float price;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "description")
-    private String description;
+  private String name;
 
-    @Enumerated(EnumType.STRING)
-    private Dimension dimension;
+  @Column(name = "item_code")
+  private String code;
 
+  @ManyToMany
+  @JoinTable(
+          name = "item_category",
+          joinColumns = @JoinColumn(name = "item_id"),
+          inverseJoinColumns = @JoinColumn(name = "category_id")
+  )
+  private List<Category> categories;
+
+  @Column(name = "price")
+  private float price;
+
+  @Column(name = "description")
+  private String description;
 }

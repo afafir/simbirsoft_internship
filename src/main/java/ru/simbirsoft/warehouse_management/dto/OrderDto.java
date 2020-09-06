@@ -1,5 +1,6 @@
 package ru.simbirsoft.warehouse_management.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,29 +16,36 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 public class OrderDto {
-    private UserDto customer;
-    private List<OrderItemDto> orderItems;
-    private ShopDto shop;
-    private boolean isConfirmed;
-    private LocalDateTime orderedAt;
-
-    public static OrderDto from(Order order){
-        OrderDto orderDto = OrderDto.builder()
-                .orderItems(OrderItemDto.from(order.getItems()))
-                .isConfirmed(order.getIsConfirmed())
-                .customer(UserDto.from(order.getCustomer()))
-                .build();
-        if (order.getOrderedAt() != null){
-            orderDto.setOrderedAt(order.getOrderedAt());
-        }
-        return orderDto;
-    }
-
-    public static List<OrderDto> from (List<Order> orders){
-        return orders.stream().map(OrderDto::from).collect(Collectors.toList());
-    }
-
-
-
-
+  @ApiModelProperty(
+          value = "unique identifier of the order",
+          name = "id",
+          dataType = "Long",
+          example = "42")
+  private Long id;
+  @ApiModelProperty(
+          value = "customer who makes order",
+          name = "customer"
+  )
+  private UserDto customer;
+  @ApiModelProperty(
+          value = "Items and counts for this order",
+          name = "items"
+  )
+  private List<OrderItemDto> orderItems;
+  @ApiModelProperty(
+          value = "Shop the order is linked to",
+          name = "shop"
+  )
+  private ShopDto shop;
+  @ApiModelProperty(
+          value = "Flag of confirmation of th order",
+          name = "confirm"
+  )
+  private Boolean isConfirmed;
+  @ApiModelProperty(
+          value = "Time when order was confirmed",
+          name = "orderedAt"
+  )
+  private LocalDateTime orderedAt;
+  private float cost;
 }

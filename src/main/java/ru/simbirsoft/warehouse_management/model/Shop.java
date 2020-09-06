@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+
 @Entity
 @Table(name = "shop")
 @Data
@@ -15,18 +16,14 @@ import java.util.List;
 @Builder
 public class Shop {
 
-        @Id
-        @GeneratedValue
-        private Long id;
-        @Column(name = "name")
-        private String name;
-        @ManyToOne
-        private Warehouse warehouse;
-        @OneToMany
-        @JoinColumn(name = "shop_id")
-        private List<Order> orders;
+  @Id @GeneratedValue private Long id;
 
+  @Column(name = "name")
+  private String name;
 
+  @ManyToOne private Warehouse warehouse;
 
-
+  @OneToMany
+  @JoinColumn(name = "shop_id")
+  private List<Order> orders;
 }

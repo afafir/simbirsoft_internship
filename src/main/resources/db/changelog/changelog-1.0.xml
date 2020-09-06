@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet  author="Bulat"  id="changelog-1.0">
+    <changeSet  author="Bulat"  id="changelog-1.1">
         <createTable  tableName="db_user">
             <column  name="id"  type="bigint"  autoIncrement="true">
                 <constraints  primaryKey="true"  nullable="false"/>
@@ -18,19 +18,26 @@
             <column  name="password"  type="varchar(100)"/>
             <column name="role" type="role"/>
         </createTable>
-        <createTable tableName="category">
+    </changeSet>
+    <changeSet  author="Bulat"  id="changelog-1.2">
+    <createTable tableName="category">
             <column  name="id"  type="bigint"  autoIncrement="true">
                 <constraints  primaryKey="true"  nullable="false"/>
             </column>
             <column name="name" type="varchar(50)"/>
             <column name="description" type="varchar(250)"/>
         </createTable>
-        <createTable tableName="item">
+    </changeSet>
+    <changeSet  author="Bulat"  id="changelog-1.3">
+    <createTable tableName="item">
             <column  name="id"  type="bigint"  autoIncrement="true">
                 <constraints  primaryKey="true"  nullable="false"/>
             </column>
             <column name="item_code" type="varchar(30)">
                 <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
             </column>
             <column name="description" type="varchar(250)">
                 <constraints nullable="false"/>
@@ -38,14 +45,10 @@
             <column name="price" type="real">
                 <constraints nullable="false"/>
             </column>
-            <column name="quantity" type="integer">
-                <constraints nullable="false"/>
-            </column>
-            <column name="dimension" type="dimension">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
-        <createTable tableName="warehouse">
+    </changeSet>
+    <changeSet  author="Bulat"  id="changelog-1.4">
+    <createTable tableName="warehouse">
             <column  name="id"  type="bigint"  autoIncrement="true">
                 <constraints  primaryKey="true"  nullable="false"/>
             </column>
@@ -53,7 +56,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <createTable tableName="supplier">
+    </changeSet>
+    <changeSet  author="Bulat"  id="changelog-1.5">
+    <createTable tableName="supplier">
             <column  name="id"  type="bigint"  autoIncrement="true">
                 <constraints  primaryKey="true"  nullable="false"/>
             </column>
@@ -61,6 +66,8 @@
                 <constraints unique="true" nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+    <changeSet id="changelog-1.6" author="Bulat">
         <createTable tableName="stock">
             <column  name="id"  type="bigint"  autoIncrement="true">
                 <constraints  primaryKey="true"  nullable="false"/>
@@ -78,10 +85,10 @@
                              foreignKeyName="fk_warehouse_stock"
                              references="warehouse(id)"/>
             </column>
-
-
         </createTable>
-        <createTable tableName="shop">
+    </changeSet>
+    <changeSet id="changelog-1.7" author="Bulat">
+    <createTable tableName="shop">
             <column  name="id"  type="bigint"  autoIncrement="true">
                 <constraints  primaryKey="true"  nullable="false"/>
             </column>
@@ -94,7 +101,9 @@
                              references="warehouse(id)"/>
             </column>
         </createTable>
-        <createTable tableName="db_order">
+    </changeSet>
+    <changeSet id="changelog-1.8" author="Bulat">
+    <createTable tableName="db_order">
             <column  name="id"  type="bigint"  autoIncrement="true">
                 <constraints  primaryKey="true"  nullable="false"/>
             </column>
@@ -112,7 +121,9 @@
             </column>
 
         </createTable>
-        <createTable tableName="invoice">
+    </changeSet>
+    <changeSet id="changelog-1.9" author="Bulat">
+    <createTable tableName="invoice">
             <column  name="id"  type="bigint"  autoIncrement="true">
                 <constraints  primaryKey="true"  nullable="false"/>
             </column>
@@ -130,7 +141,9 @@
                              references="supplier(id)"/>
             </column>
         </createTable>
-        <createTable tableName="item_order">
+    </changeSet>
+    <changeSet id="changelog-1.10" author="Bulat">
+    <createTable tableName="item_order">
             <column name="item_id" type="bigint">
                 <constraints nullable="false"
                              primaryKey="true"
@@ -147,7 +160,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <createTable tableName="item_category">
+    </changeSet>
+    <changeSet id="changelog-1.11" author="Bulat">
+    <createTable tableName="item_category">
             <column name="item_id" type="bigint">
                 <constraints nullable="false"
                              primaryKey="true"
@@ -161,7 +176,9 @@
                              references="category(id)"/>
             </column>
         </createTable>
-        <createTable tableName="item_invoice">
+    </changeSet>
+    <changeSet id="changelog-1.12" author="Bulat">
+    <createTable tableName="item_invoice">
             <column name="item_id" type="bigint">
                 <constraints nullable="false"
                              primaryKey="true"
@@ -179,4 +196,6 @@
             </column>
         </createTable>
     </changeSet>
+
+
 </databaseChangeLog>
